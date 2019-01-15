@@ -42,3 +42,32 @@ dotnet /opt/sonarscanner/SonarScanner.MSBuild.dll end
 
 ### Gitlab-CI
 
+Example of job into gitlab-ci.yml.
+Assuming the existence of a stage "analysis". 
+The following variables MUST be defined as secret variables in CI/CD configuration :
+- `SONAR_HOST_URL` : The host of sonar (http://something:9000 )
+- `SONAR_LOGIN` : The user sonar will use to perform analysis
+- `SONAR_PASSWORD` : The password of the given user
+
+```yaml  
+##############################################################################
+# Stage: Analysis
+##############################################################################
+
+analysis.sonar:
+ stage: analysis
+ image: registry.gitlab.com/kirrk/utils/sonarscanner-dotnet:latest
+ only:
+  refs:
+   - master
+ variables:
+  PROJECT_ROOT: <The_path_to_the_source_code_to_scan>
+  SONAR_PROJECT_KEY: <The_key_of_the_sonar_project_to_scan>
+ before_script:
+  - /bin/bash /entrypoint.sh
+ script:
+  - cd ${PROJECT_ROOT}
+  - dotnet /opt/sonarscanner/SonarScanner.MSBuild.dll begin /key:${SONAR_PROJECT_KEY}
+  - dotnet build
+  - dotnet /opt/sonarscanner/SonarScanner.MSBuild.dll end
+```
