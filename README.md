@@ -71,3 +71,7 @@ analysis.sonar:
   - dotnet build
   - dotnet /opt/sonarscanner/SonarScanner.MSBuild.dll end
 ```
+
+## TODO
+
+- Build multiple images for multiple dotnet versions (`2.1`, `2.2`, `3.0`, ...)
