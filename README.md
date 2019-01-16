@@ -63,8 +63,6 @@ analysis.sonar:
  variables:
   PROJECT_ROOT: <The_path_to_the_source_code_to_scan>
   SONAR_PROJECT_KEY: <The_key_of_the_sonar_project_to_scan>
- before_script:
-  - /bin/bash /entrypoint.sh
  script:
   - cd ${PROJECT_ROOT}
   - dotnet /opt/sonarscanner/SonarScanner.MSBuild.dll begin /key:${SONAR_PROJECT_KEY}
