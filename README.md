@@ -3,7 +3,7 @@
 
 Implementation of the sonar-scanner for dotnet projects
 
-Image is actually hosted under `registry.gitlab.com/kirrk/utils/sonarscanner-dotnet:latest` 
+Image is actually hosted under `redfabriq/sonar-scanner-dotnet:latest` 
 
 ## Basic Usage
 
@@ -22,7 +22,7 @@ docker run                                                      \
   -e SONAR_LOGIN=${SONAR_LOGIN}                                 \
   -e SONAR_PASSWORD=${SONAR_PASSWORD}                           \
   -it                                                           \
-  registry.gitlab.com/kirrk/utils/sonarscanner-dotnet:latest
+  redfabriq/sonar-scanner-dotnet:latest
 ```
 
 ### Inside container
@@ -56,7 +56,7 @@ The following variables MUST be defined as secret variables in CI/CD configurati
 
 analysis.sonar:
  stage: analysis
- image: registry.gitlab.com/kirrk/utils/sonarscanner-dotnet:latest
+ image: redfabriq/sonar-scanner-dotnet:latest
  only:
   refs:
    - master
