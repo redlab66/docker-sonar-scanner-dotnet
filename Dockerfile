@@ -1,9 +1,10 @@
 FROM openjdk:8u181-jdk
 LABEL Maintainer="Yann Ponzoni (Mobioos) <yann.ponzoni@redfabriq.com>"
 
-ENV SONAR_HOST_URL 'http://localhost:9000'
-ENV SONAR_LOGIN 'changeme'
-ENV SONAR_PASSWORD 'changeme'
+ENV SONAR_HOST_URL='http://localhost:9000'  \
+    SONAR_LOGIN='changeme'                  \
+    SONAR_PASSWORD='changeme'               \
+    SONAR_SCANNER_VERSION='4.6.1.2049'
 
 # Install basics (see: https://askubuntu.com/questions/165676/how-do-i-fix-a-e-the-method-driver-usr-lib-apt-methods-http-could-not-be-foun)
 RUN apt-get update                                                                                                     \
@@ -20,7 +21,7 @@ RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor 
  && apt-get install -y dotnet-sdk-2.1
 
 # Install sonar-scanner (see: https://docs.sonarqube.org/display/SCAN/Install+the+SonarScanner+for+MSBuild)
-ADD https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/4.5.0.1761/sonar-scanner-msbuild-4.5.0.1761-netcoreapp2.0.zip /tmp/sonarscanner-msbuild.zip
+ADD https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/${SONAR_SCANNER_VERSION}/sonar-scanner-msbuild-${SONAR_SCANNER_VERSION}-netcoreapp2.0.zip /tmp/sonarscanner-msbuild.zip
 RUN unzip /tmp/sonarscanner-msbuild.zip -d /opt/sonarscanner/                                                          \
  && chmod -v +x /opt/sonarscanner/sonar-scanner-*/bin/*                                                                \
  && ln -s /opt/sonarscanner/sonar-scanner-*/bin/sonar-scanner       /usr/local/bin                                     \
